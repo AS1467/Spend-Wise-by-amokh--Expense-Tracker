@@ -1,4 +1,4 @@
-# 🍏 Simple & Elegant Expense Tracker
+# 🍏 Spend Wise by amokh-Expense Tracker
 
 A minimalist, Apple-style personal finance tracker designed to help you monitor your **income**, **expenses**, and **spending habits** with clarity and ease. Beautifully crafted with a focus on simplicity, personalization, and meaningful insights.
 
