@@ -1,11 +1,5 @@
-import { Transaction, Category, ChartData, NeedWantType } from "@/types";
 
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
-}
+import { Transaction, Category, ChartData, NeedWantType } from "@/types";
 
 export const calculateTotalIncome = (transactions: Transaction[]): number => {
   return transactions

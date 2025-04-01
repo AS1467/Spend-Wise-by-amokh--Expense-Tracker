@@ -1,7 +1,5 @@
 
 import React from "react";
-import { MoonIcon, SunIcon } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
 import { Link } from "react-router-dom";
 import { useUserSettings } from "@/hooks/useUserSettings";
 
@@ -10,7 +8,6 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { theme, toggleTheme } = useTheme();
   const { greeting } = useUserSettings();
   
   return (
@@ -22,17 +19,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </h1>
           <p className="text-sm text-muted-foreground">{greeting}</p>
         </div>
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full hover:bg-muted transition-colors"
-          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {theme === "dark" ? (
-            <SunIcon className="h-5 w-5" />
-          ) : (
-            <MoonIcon className="h-5 w-5" />
-          )}
-        </button>
       </header>
       
       <main className="flex-1 overflow-y-auto">{children}</main>

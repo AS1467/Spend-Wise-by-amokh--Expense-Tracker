@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useFinance } from "@/context/FinanceContext";
-import { formatCurrency, getNeedWantData } from "@/lib/finance-utils";
+import { getNeedWantData } from "@/lib/finance-utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   PieChart,
@@ -11,12 +11,14 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 const COLORS = ["hsl(252, 56%, 57%)", "hsl(25, 95%, 53%)"];
 const LABELS = ["Need", "Want"];
 
 const NeedWantCard = () => {
   const { selectedTimeframe, getTransactionsInTimeframe } = useFinance();
+  const { formatCurrency } = useUserSettings();
   const transactions = getTransactionsInTimeframe(selectedTimeframe);
   
   const chartData = getNeedWantData(transactions).datasets[0].data.map((value, index) => ({

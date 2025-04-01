@@ -17,13 +17,13 @@ import {
   Legend,
 } from "recharts";
 import {
-  formatCurrency,
   getCategoryExpenseData,
   getNeedWantData,
   checkCategoryLimits,
 } from "@/lib/finance-utils";
 import { Progress } from "@/components/ui/progress";
 import { AlertTriangleIcon } from "lucide-react";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 const COLORS = [
   "#3498db",
@@ -45,6 +45,8 @@ const Insights = () => {
     getTransactionsInTimeframe,
     categories,
   } = useFinance();
+  
+  const { formatCurrency } = useUserSettings();
 
   const transactions = getTransactionsInTimeframe(selectedTimeframe);
   

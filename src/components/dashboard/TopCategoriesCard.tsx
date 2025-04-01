@@ -1,12 +1,14 @@
 
 import React from "react";
 import { useFinance } from "@/context/FinanceContext";
-import { formatCurrency, getTopExpenseCategories } from "@/lib/finance-utils";
+import { getTopExpenseCategories } from "@/lib/finance-utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 const TopCategoriesCard = () => {
   const { selectedTimeframe, getTransactionsInTimeframe, categories } = useFinance();
+  const { formatCurrency } = useUserSettings();
   const transactions = getTransactionsInTimeframe(selectedTimeframe);
   
   const topCategories = getTopExpenseCategories(transactions, categories, 5);

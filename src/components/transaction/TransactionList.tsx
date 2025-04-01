@@ -3,7 +3,6 @@ import React from "react";
 import { format } from "date-fns";
 import { useFinance } from "@/context/FinanceContext";
 import { Transaction } from "@/types";
-import { formatCurrency } from "@/lib/finance-utils";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Trash2Icon, PencilIcon } from "lucide-react";
 import TransactionForm from "./TransactionForm";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -21,6 +21,7 @@ interface TransactionListProps {
 
 const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
   const { getCategoryById, deleteTransaction } = useFinance();
+  const { formatCurrency } = useUserSettings();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [selectedTransaction, setSelectedTransaction] = React.useState<Transaction | undefined>(undefined);
 

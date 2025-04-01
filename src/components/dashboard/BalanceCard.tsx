@@ -1,11 +1,13 @@
 
 import { useFinance } from "@/context/FinanceContext";
-import { formatCurrency, calculateTotalIncome, calculateTotalExpenses, calculateBalance } from "@/lib/finance-utils";
+import { calculateTotalIncome, calculateTotalExpenses, calculateBalance } from "@/lib/finance-utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpIcon, ArrowDownIcon } from "lucide-react";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 const BalanceCard = () => {
   const { selectedTimeframe, getTransactionsInTimeframe } = useFinance();
+  const { formatCurrency } = useUserSettings();
   const transactions = getTransactionsInTimeframe(selectedTimeframe);
   
   const totalIncome = calculateTotalIncome(transactions);
