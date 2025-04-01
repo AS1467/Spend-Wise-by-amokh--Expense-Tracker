@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -32,7 +30,6 @@ import CategoryForm from "@/components/category/CategoryForm";
 import { useUserSettings } from "@/hooks/useUserSettings";
 
 const Settings = () => {
-  const { theme, toggleTheme } = useTheme();
   const { settings, updateName, updateCurrency } = useUserSettings();
   const [addCategoryDialogOpen, setAddCategoryDialogOpen] = useState(false);
 
@@ -84,22 +81,6 @@ const Settings = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-medium mb-2">Appearance</h2>
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="dark-mode">Dark Mode</Label>
-                  <Switch
-                    id="dark-mode"
-                    checked={theme === "dark"}
-                    onCheckedChange={toggleTheme}
-                  />
                 </div>
               </CardContent>
             </Card>

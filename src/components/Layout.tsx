@@ -2,6 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserSettings } from "@/hooks/useUserSettings";
+import { useTheme } from "@/context/ThemeContext";
+import { Button } from "./ui/button";
+import { Moon, Sun } from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,6 +12,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { greeting } = useUserSettings();
+  const { theme, toggleTheme } = useTheme();
   
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -19,6 +23,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </h1>
           <p className="text-sm text-muted-foreground">{greeting}</p>
         </div>
+        
+        <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+          {theme === "dark" ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+        </Button>
       </header>
       
       <main className="flex-1 overflow-y-auto">{children}</main>
