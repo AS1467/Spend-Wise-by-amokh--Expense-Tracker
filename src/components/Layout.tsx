@@ -2,6 +2,8 @@
 import React from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { Link } from "react-router-dom";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,13 +11,17 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { theme, toggleTheme } = useTheme();
+  const { greeting } = useUserSettings();
   
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <header className="px-4 py-3 flex items-center justify-between bg-card border-b">
-        <h1 className="text-xl font-semibold">
-          <span className="text-primary">Spend</span> Wise
-        </h1>
+        <div>
+          <h1 className="text-xl font-semibold">
+            <span className="text-primary">Spend</span> Wise
+          </h1>
+          <p className="text-sm text-muted-foreground">{greeting}</p>
+        </div>
         <button
           onClick={toggleTheme}
           className="p-2 rounded-full hover:bg-muted transition-colors"
@@ -31,8 +37,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       
       <main className="flex-1 overflow-y-auto">{children}</main>
       
-      <nav className="grid grid-cols-4 border-t bg-card">
-        <a href="/" className="py-3 flex flex-col items-center justify-center text-xs">
+      <nav className="grid grid-cols-4 border-t bg-card fixed bottom-0 left-0 right-0">
+        <Link to="/" className="py-3 flex flex-col items-center justify-center text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mb-1"
@@ -48,8 +54,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             />
           </svg>
           Dashboard
-        </a>
-        <a href="/transactions" className="py-3 flex flex-col items-center justify-center text-xs">
+        </Link>
+        <Link to="/transactions" className="py-3 flex flex-col items-center justify-center text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mb-1"
@@ -65,8 +71,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             />
           </svg>
           Transactions
-        </a>
-        <a href="/insights" className="py-3 flex flex-col items-center justify-center text-xs">
+        </Link>
+        <Link to="/insights" className="py-3 flex flex-col items-center justify-center text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mb-1"
@@ -82,8 +88,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             />
           </svg>
           Insights
-        </a>
-        <a href="/settings" className="py-3 flex flex-col items-center justify-center text-xs">
+        </Link>
+        <Link to="/settings" className="py-3 flex flex-col items-center justify-center text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mb-1"
@@ -105,8 +111,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             />
           </svg>
           Settings
-        </a>
+        </Link>
       </nav>
+      
+      {/* Add padding at the bottom to prevent content from being hidden behind the fixed navbar */}
+      <div className="h-[72px]"></div>
     </div>
   );
 };

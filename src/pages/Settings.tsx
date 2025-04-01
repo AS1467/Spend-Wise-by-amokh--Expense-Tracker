@@ -19,12 +19,33 @@ import { PlusIcon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import CategoryList from "@/components/category/CategoryList";
 import CategoryForm from "@/components/category/CategoryForm";
+import { useUserSettings } from "@/hooks/useUserSettings";
 
 const Settings = () => {
   const { theme, toggleTheme } = useTheme();
+  const { settings, updateName, updateCurrency } = useUserSettings();
   const [addCategoryDialogOpen, setAddCategoryDialogOpen] = useState(false);
+
+  const currencies = [
+    { code: "USD", name: "US Dollar" },
+    { code: "INR", name: "Indian Rupee" },
+    { code: "EUR", name: "Euro" },
+    { code: "GBP", name: "British Pound" },
+    { code: "JPY", name: "Japanese Yen" },
+    { code: "CAD", name: "Canadian Dollar" },
+    { code: "AUD", name: "Australian Dollar" },
+    { code: "CNY", name: "Chinese Yuan" },
+  ];
 
   return (
     <Layout>
@@ -32,6 +53,42 @@ const Settings = () => {
         <h1 className="text-2xl font-bold">Settings</h1>
 
         <div className="space-y-6">
+          <section>
+            <h2 className="text-lg font-medium mb-2">User Settings</h2>
+            <Card>
+              <CardContent className="p-4 space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="user-name">Your Name</Label>
+                  <Input
+                    id="user-name"
+                    placeholder="Enter your name"
+                    value={settings.name}
+                    onChange={(e) => updateName(e.target.value)}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="currency">Currency</Label>
+                  <Select 
+                    value={settings.currency} 
+                    onValueChange={updateCurrency}
+                  >
+                    <SelectTrigger id="currency">
+                      <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {currencies.map((currency) => (
+                        <SelectItem key={currency.code} value={currency.code}>
+                          {currency.code} - {currency.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
           <section>
             <h2 className="text-lg font-medium mb-2">Appearance</h2>
             <Card>
