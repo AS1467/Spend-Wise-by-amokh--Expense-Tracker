@@ -1,9 +1,6 @@
 
 import React from "react";
 import Layout from "@/components/Layout";
-import BalanceCard from "@/components/dashboard/BalanceCard";
-import NeedWantCard from "@/components/dashboard/NeedWantCard";
-import TopCategoriesCard from "@/components/dashboard/TopCategoriesCard";
 import { TimeframeSelector } from "@/components/ui/time-frame-selector";
 import { useFinance } from "@/context/FinanceContext";
 import {
@@ -18,7 +15,7 @@ import { PlusIcon } from "lucide-react";
 import TransactionForm from "@/components/transaction/TransactionForm";
 import TransactionList from "@/components/transaction/TransactionList";
 
-const Index = () => {
+const Transactions = () => {
   const { 
     selectedTimeframe,
     timeframes,
@@ -35,7 +32,7 @@ const Index = () => {
     <Layout>
       <div className="p-4 space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold">Transactions</h1>
           <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm">
@@ -62,21 +59,15 @@ const Index = () => {
           onCustomDateChange={(start, end) => setCustomDateRange({ start, end })}
         />
         
-        <BalanceCard />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <NeedWantCard />
-          <TopCategoriesCard />
-        </div>
-        
         <div className="space-y-2">
-          <h2 className="text-xl font-bold">Recent Transactions</h2>
-          <TransactionList transactions={transactions.slice(0, 5)} />
+          <TransactionList transactions={transactions} />
           
-          {transactions.length > 5 && (
-            <div className="text-center pt-2">
-              <Button variant="link" asChild>
-                <a href="/transactions">View all transactions</a>
+          {transactions.length === 0 && (
+            <div className="p-8 text-center">
+              <p className="text-muted-foreground mb-4">No transactions found for this period.</p>
+              <Button onClick={() => setAddDialogOpen(true)}>
+                <PlusIcon className="h-4 w-4 mr-1" />
+                Add Your First Transaction
               </Button>
             </div>
           )}
@@ -86,4 +77,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Transactions;
