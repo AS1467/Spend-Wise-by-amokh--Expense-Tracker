@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Trash2Icon, PencilIcon } from "lucide-react";
-import { formatCurrency } from "@/lib/finance-utils";
+import { useUserSettings } from "@/hooks/useUserSettings";
 import CategoryForm from "./CategoryForm";
 
 interface CategoryListProps {
@@ -19,6 +19,7 @@ interface CategoryListProps {
 
 const CategoryList: React.FC<CategoryListProps> = ({ type }) => {
   const { categories, deleteCategory } = useFinance();
+  const { formatCurrency } = useUserSettings();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [selectedCategory, setSelectedCategory] = React.useState<Category | undefined>(undefined);
 
