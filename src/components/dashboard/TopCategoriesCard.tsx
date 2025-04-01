@@ -31,7 +31,6 @@ const TopCategoriesCard = () => {
                 <Progress
                   value={(item.amount / maxAmount) * 100}
                   className="h-2"
-                  indicatorClassName="bg-primary"
                 />
               </div>
             ))}

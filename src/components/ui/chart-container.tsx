@@ -1,6 +1,9 @@
 
 import React from 'react';
-import { Line, Bar, Pie } from 'recharts';
+import { 
+  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
+} from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartData } from '@/types';
 
@@ -35,57 +38,70 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
       case 'pie':
         return (
           <div className="h-[300px] w-full flex items-center justify-center">
-            <Pie
-              data={formattedData}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill="#8884d8"
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-            >
-              {formattedData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie
+                  data={formattedData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#8884d8"
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                >
+                  {formattedData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         );
       case 'bar':
         return (
           <div className="h-[300px] w-full">
-            <Bar
-              data={formattedData}
-              layout="vertical"
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis type="number" />
-              <YAxis dataKey="name" type="category" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" fill="#8884d8" label={<CustomizedLabel />}>
-                {formattedData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
-            </Bar>
+            <ResponsiveContainer>
+              <BarChart
+                data={formattedData}
+                layout="vertical"
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" />
+                <YAxis dataKey="name" type="category" />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#8884d8" label={<CustomizedLabel />}>
+                  {formattedData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         );
       case 'line':
         return (
           <div className="h-[300px] w-full">
-            <Line data={formattedData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-            </Line>
+            <ResponsiveContainer>
+              <LineChart
+                data={formattedData}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         );
       default:

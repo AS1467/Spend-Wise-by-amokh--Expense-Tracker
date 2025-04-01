@@ -169,7 +169,6 @@ const Insights = () => {
                         <Progress
                           value={((item.amount / (item.category.limit || 1)) * 100)}
                           className="h-2"
-                          indicatorClassName="bg-destructive"
                         />
                       </div>
                     ))}
